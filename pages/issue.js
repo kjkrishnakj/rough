@@ -8,7 +8,7 @@ import AOS from "aos";
 import Head from "next/head";
  
 import { useRouter } from 'next/router'
-const Issue= () => {
+const Issue= (rnum) => {
     const router = useRouter()
     const { bookId,title, img } = router.query;
     useEffect(() => {
@@ -19,7 +19,7 @@ const Issue= () => {
     }, [])
     const rno=localStorage.getItem('rno');
     const [sname, setSname] = useState('');
-    const [sid, setSid] = useState(rno);
+    const [sid, setSid] = useState(rnum);
     console.log("sid",sid);
     
     const [bid, setBid] = useState(bookId); 

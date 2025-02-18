@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Head from "next/head";
 import { useRouter } from 'next/router'
 import { useState } from 'react' 
-const Login = () => {
+const Login = (rnum) => {
   const router = useRouter()
   useEffect(() => {
     AOS.init();
@@ -33,6 +33,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = { rno, password }
+    rnum=rno;
     
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: 'POST',
@@ -48,14 +49,14 @@ const Login = () => {
 
     if (response.success) {
       localStorage.setItem('token', response.token)
-      localStorage.setItem('rno', rno);
+      // localStorage.setItem('rno', rno);
 
 
 
       // toast.success("Logged in successfully 👍", { autoClose: 1000 })
       setTimeout(() => {
 
-        router.push(`/?rno=${rno}`)
+        router.push(`/`)
       }, 1000)
     }
     else {

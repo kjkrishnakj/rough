@@ -8,7 +8,7 @@ import AOS from "aos";
 import Head from "next/head";
  
 import { useRouter } from 'next/router'
-const Signup = () => {
+const Signup = (rnum) => {
     const router = useRouter()
 
     useEffect(() => {
@@ -36,6 +36,8 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = { name: name, rno, password }
+        rnum=rno;
+        // console.log("rnum ",rnum);
         let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
             method: 'POST',
             headers: {
@@ -43,21 +45,24 @@ const Signup = () => {
             },
             body: JSON.stringify(data),
         })
+        
         let response = await res.json()
         // console.log(response);
         setRno('')
+        
         setName('')
         setPassword('')
         // toast.success("welcome " + name + " 🙃", { autoClose: 1000 })
         setTimeout(() => {
             router.push('/login')
         }, 1000)
+
     }
 
     return (
         <div>
             {/* <ToastContainer /> */}
-            <Head><title>Amikart | Signup</title></Head>
+            <Head><title>lib | Signup</title></Head>
             <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="mt-16  sm:mx-auto sm:w-full sm:max-w-sm">
                     {/* <Image className='mx-auto' src={logo} alt="" style={{ height: "4rem", width: "6rem" }}></Image> */}
@@ -73,9 +78,9 @@ const Signup = () => {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="rno" className="block text-sm font-medium leading-6 text-gray-900">registration no.</label>
+                            <label htmlFor="rno" className="block text-sm font-medium leading-6 text-gray-900">registration</label>
                             <div className="mt-2">
-                                <input value={rno} onChange={handleChange} id="rno" name="rno" type="text" autoCmplete="rno" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <input value={rno} onChange={handleChange} id="rno" name="rno" type="string" autoCmplete="rno" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
                         </div>
 
