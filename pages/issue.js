@@ -17,10 +17,9 @@ const Issue= (rnum) => {
         //     router.push('/')
         // }
     }, [])
-    const rno=localStorage.getItem('rno');
     const [sname, setSname] = useState('');
-    const [sid, setSid] = useState(rnum);
-    console.log("sid",sid);
+    const [sid, setSid] = useState('');
+    // console.log("sid",sid);
     
     const [bid, setBid] = useState(bookId); 
     const [penalty, setPenalty] = useState(0);
@@ -36,33 +35,33 @@ const Issue= (rnum) => {
             setSname(e.target.value);
             
         }
-        else if (e.target.name == 'title') {
-            setTitle(e.target.value);
-            console.log(title);
-        }
+        // else if (e.target.name == 'title') {
+        //     setTitle(e.target.value);
+        //     console.log(title);
+        // }
         
     }
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault()
-    //     // const data = { name: name, email, password }
-    //     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addIssue`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //     let response = await res.json()
-    //     // console.log(response);
-    //     setEmail('')
-    //     setName('')
-    //     setPassword('')
-    //     // toast.success("welcome " + name + " 🙃", { autoClose: 1000 })
-    //     setTimeout(() => {
-    //         router.push('/login')
-    //     }, 1000)
-    // }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const data = { sname,sid:"22BCE1926",bid:bookId,title,idate,rdate,rs,penalty }
+        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addIssue`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        let response = await res.json()
+        // console.log(response);
+        // setSname('')
+        // setT('')
+        // setPassword('')
+        // toast.success("welcome " + name + " 🙃", { autoClose: 1000 })
+        // setTimeout(() => {
+        //     router.push('/login')
+        // }, 1000)
+    }
 
     return (
         <div>
@@ -91,7 +90,7 @@ const Issue= (rnum) => {
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Reg no.</label>
                             <div className="mt-2">
-                                <input value={sid}  id="name" name="sname" type="text" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <input value={"22bce1926"}  onChange={handleChange}   id="name" name="sname" type="text" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
                         </div>
                         <div>
@@ -113,7 +112,6 @@ const Issue= (rnum) => {
                             <div className="mt-2">
                                 <input
                                     value={rdate}
-                                    onChange={(e) => setRdate(e.target.value)}
                                     id="date"
                                     name="date"
                                     type="date"
@@ -125,7 +123,7 @@ const Issue= (rnum) => {
 
 
                         <div>
-                            <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
+                            <button onClick={handleSubmit} type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">issue</button>
                         </div>
                     </form>
 

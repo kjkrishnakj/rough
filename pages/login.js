@@ -34,6 +34,8 @@ const Login = (rnum) => {
     e.preventDefault()
     const data = { rno, password }
     rnum=rno;
+    console.log('rnum',rnum);
+    
     
     let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: 'POST',

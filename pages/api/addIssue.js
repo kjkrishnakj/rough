@@ -4,6 +4,8 @@ import Issue from "../../models/Issue";
 const handler = async (req, res) => {
   if (req.method == 'POST') {
     let u = new Issue(req.body)
+    console.log(u);
+    
     await u.save();
     res.status(200).json({ success: "success" });
   }

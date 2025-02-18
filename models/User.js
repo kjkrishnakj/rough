@@ -7,5 +7,5 @@ const UserSchema  = new mongoose.Schema({
  
 
 },{timestamps: true});
-
-module.exports = mongoose.models.User|| mongoose.model("User",UserSchema)
+mongoose.models = {};
+module.exports = mongoose.model("User", UserSchema);

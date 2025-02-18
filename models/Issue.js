@@ -13,4 +13,5 @@ const IssueSchema  = new mongoose.Schema({
 
 },{timestamps: true});
 
-module.exports = mongoose.models.Issue|| mongoose.model("Issue",IssueSchema)
+mongoose.models = {};
+module.exports = mongoose.model("Issue", IssueSchema);
