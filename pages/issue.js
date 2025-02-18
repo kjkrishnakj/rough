@@ -17,16 +17,20 @@ const Issue= () => {
         //     router.push('/')
         // }
     }, [])
-
+    const rno=localStorage.getItem('rno');
     const [sname, setSname] = useState('');
-    const [sid, setSid] = useState('');
-    const [bid, setBid] = useState(bookId);4
+    const [sid, setSid] = useState(rno);
+    console.log("sid",sid);
+    
+    const [bid, setBid] = useState(bookId); 
     const [penalty, setPenalty] = useState(0);
     const [rs, setRs] = useState(false);
-    const [idate, setIdate] = useState(new Date());
-    const [rdate, setRdate] = useState(new Date());
+    const [idate, setIdate] = useState(new Date().toISOString().split('T')[0]);
 
 
+    const today = new Date();
+    today.setDate(today.getDate() + 10);
+    const [rdate, setRdate] = useState(today.toISOString().split('T')[0]);
     const handleChange = (e) => {
         if (e.target.name == 'sname') {
             setSname(e.target.value);
@@ -82,6 +86,40 @@ const Issue= () => {
                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Title</label>
                             <div className="mt-2">
                                 <input value={title}  id="name" name="sname" type="text" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Reg no.</label>
+                            <div className="mt-2">
+                                <input value={sid}  id="name" name="sname" type="text" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">Issue Date</label>
+                            <div className="mt-2">
+                                <input
+                                    value={idate}
+                                    
+                                    id="date"
+                                    name="date"
+                                    type="date"
+                                    required
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">Return Date</label>
+                            <div className="mt-2">
+                                <input
+                                    value={rdate}
+                                    onChange={(e) => setRdate(e.target.value)}
+                                    id="date"
+                                    name="date"
+                                    type="date"
+                                    required
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
                             </div>
                         </div>
 
