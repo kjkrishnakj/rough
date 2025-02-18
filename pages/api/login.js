@@ -3,11 +3,11 @@ import User from "../../models/User";
 var jwt = require('jsonwebtoken');
 const handler = async (req, res) => {
     if (req.method == 'POST') {
-        let user = await User.findOne({ "email": req.body.email })
+        let user = await User.findOne({ "rno": req.body.rno })
         if (user) {
-            if (req.body.email == user.email && req.body.password == user.password) {
-                var token = jwt.sign({  email: user.email, name: user.name}, process.env.JWT_SECRET,{expiresIn:"2d"});
-                res.status(200).json({success:true,token,email:user.email});
+            if (req.body.rno == user.rno && req.body.password == user.password) {
+                var token = jwt.sign({  rno: user.rno, name: user.name}, process.env.JWT_SECRET,{expiresIn:"2d"});
+                res.status(200).json({success:true,token,rno:user.rno});
             }
             else{
 

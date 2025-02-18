@@ -18,15 +18,15 @@ const Signup = () => {
         // }
     }, [])
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [rno, setRno] = useState('');
     const [password, setPassword] = useState('');
 
     const handleChange = (e) => {
         if (e.target.name == 'name') {
             setName(e.target.value);
         }
-        else if (e.target.name == 'email') {
-            setEmail(e.target.value);
+        else if (e.target.name == 'rno') {
+            setRno(e.target.value);
         }
         else if (e.target.name == 'password') {
             setPassword(e.target.value);
@@ -35,7 +35,7 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const data = { name: name, email, password }
+        const data = { name: name, rno, password }
         let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
             method: 'POST',
             headers: {
@@ -45,7 +45,7 @@ const Signup = () => {
         })
         let response = await res.json()
         // console.log(response);
-        setEmail('')
+        setRno('')
         setName('')
         setPassword('')
         // toast.success("welcome " + name + " 🙃", { autoClose: 1000 })
@@ -73,9 +73,9 @@ const Signup = () => {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                            <label htmlFor="rno" className="block text-sm font-medium leading-6 text-gray-900">registration no.</label>
                             <div className="mt-2">
-                                <input value={email} onChange={handleChange} id="email" name="email" type="email" autoCmplete="email" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <input value={rno} onChange={handleChange} id="rno" name="rno" type="text" autoCmplete="rno" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
                         </div>
 

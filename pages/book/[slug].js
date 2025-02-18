@@ -19,7 +19,7 @@ const Post = ({ error, book, }) => {
     const router = useRouter();
     const { slug } = router.query
 
-    const buyNow = async (slug, availableQty, title) => {
+    const buyNow = async (slug, availableQty, title,id,img) => {
         if (availableQty <= 0) return;
       
         try {
@@ -32,10 +32,17 @@ const Post = ({ error, book, }) => {
           const data = await res.json();
           if (data.success) {
             console.log("Updated Quantity:", data.availableQty);
-          }
-        } catch (error) {
-          console.error("Error updating quantity:", error);
         }
+    } catch (error) {
+        console.error("Error updating quantity:", error);
+    }
+    console.log("id:", id);
+        
+        
+    
+    router.push(`${process.env.NEXT_PUBLIC_HOST}/issue?bookId=${id}&img=${img}&title=${title}`);
+
+
       };
       
     return <>
@@ -61,7 +68,7 @@ const Post = ({ error, book, }) => {
                         <div className="flex">
                             {book.availableQty <= 0 ? <span className="title-font font-medium text-2xl text-gray-900">Out Of Stock!</span> :
                                 <span className="title-font font-medium text-2xl text-gray-900">{book.author}</span>}
-                            <button onClick={() => { buyNow(slug, book.availableQty, book.title) }} disabled={book.availableQty <= 0 ? true : false} className=" ml-10 disabled:bg-indigo-500 text-white  bg-green-500 border-0 py-2 px-2 focus:outline-none hover:bg-green-700 rounded">Issue</button>
+                            <button onClick={() => { buyNow(slug, book.availableQty, book.title,book._id,book.img) }} disabled={book.availableQty <= 0 ? true : false} className=" ml-10 disabled:bg-indigo-500 text-white  bg-green-500 border-0 py-2 px-2 focus:outline-none hover:bg-green-700 rounded">Issue</button>
 
                         </div>
                        
