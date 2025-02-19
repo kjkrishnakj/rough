@@ -2,6 +2,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import mongoose from "mongoose";
+
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import Error from 'next/error'
 import Book from "../../models/Book";
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,7 +15,7 @@ import AOS from "aos";
 
 import Link from 'next/link';
 
-const Post = ({ error, book, }) => {
+const Post = ({ error, book,cat }) => {
     useEffect(() => {
         AOS.init();
     }, []);
@@ -79,6 +82,43 @@ const Post = ({ error, book, }) => {
                 </div>
             </div>
         </section >
+        <section className="text-[#0095B3]  body-font">
+
+        <div className="container px-5 py-12 mx-auto">
+
+          <h1 className="text-2xl font-bold mt mb-2">Featured Products </h1>
+
+          <Carousel
+
+responsive={{
+    superLargeDesktop: { breakpoint: { max: 4000, min: 1200 }, items: 3 },
+    desktop: { breakpoint: { max: 1200, min: 1024 }, items: 3 },
+    tablet: { breakpoint: { max: 1024, min: 768 }, items: 2 },
+    mobile: { breakpoint: { max: 768, min: 0 }, items: 1 },
+  }}
+  
+            autoPlay={true}
+            autoPlaySpeed={2000}
+            infinite={true}>
+            {Object.keys(cat).map((item) => {
+
+              return <Link passHref={true} key={cat[item]._id} href={`/product/${cat[item].slug}`}>
+                <div className=" lg:w-1/2 md:w-1/2 p-2 " style={{ width: "6cm", margin: "0.5cm 2cm" }}>
+                  <img src={cat[item].img} alt="" className="w-full  h-full object-fill" style={{ height: "14rem", width: "11rem", margin: "auto" }} />
+                  <div className="mt-4">
+                    <h3 className="text-gray-500 text-xs  tracking-widest title-font mb-1">{cat[item].title}</h3>
+                    <h2 className="text-gray-900 title-font text-lg font-medium">{cat[item].author}</h2>
+                  </div>
+
+                </div>
+
+              </Link>
+            })
+            }
+
+          </Carousel>
+        </div>
+      </section>
 
     
 
@@ -94,7 +134,11 @@ export async function getServerSideProps(context) {
     }
 
 
+    
+    
     let book = await Book.findOne({ slug: context.query.slug })
+    let genre =  book.category;
+    let cat = await Book.find({ category: genre });
     let variants = await Book.find({ title: book.title })
 
     let error = null;
@@ -107,6 +151,6 @@ export async function getServerSideProps(context) {
 
 
     return {
-        props: { error: error, book: JSON.parse(JSON.stringify(book))}
+        props: { error: error, book: JSON.parse(JSON.stringify(book)),cat: JSON.parse(JSON.stringify(cat))}
     }
 }

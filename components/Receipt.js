@@ -35,7 +35,7 @@ const Receipt = () => {
     <p className="text-gray-700"><strong>Book id:</strong> {issue.bid}</p>
     <p className="text-gray-700"><strong>Issued By:</strong> {issue.sid}</p>
     <p className="text-gray-700"><strong>Issue Date:</strong> {new Date(issue.createdAt).toLocaleDateString()}</p>
-    <p className="text-gray-700"><strong>Expected       Return Date:</strong> {new Date(new Date(issue.createdAt).getTime() + 10 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
+    <p className="text-gray-700"><strong>Expected   Return Date:</strong> {new Date(new Date(issue.createdAt).getTime() + 10 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
 </div>
 
             <button onClick={downloadPDF} className="mt-4 bg-blue-500 text-white p-2 rounded">Download PDF</button>
