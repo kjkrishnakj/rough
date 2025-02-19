@@ -75,7 +75,7 @@ export default function Admin({ books }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/book");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/book`);
   const books = await res.json();
   return { props: { books } };
 }
