@@ -86,7 +86,7 @@ const Post = ({ error, book,cat }) => {
 
         <div className="container px-5 py-12 mx-auto">
 
-          <h1 className="text-2xl font-bold mt mb-2">Featured Products </h1>
+          <h1 className="text-2xl font-bold mt mb-2">More from this category </h1>
 
           <Carousel
 
