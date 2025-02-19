@@ -51,14 +51,15 @@ const Login = (rnum) => {
 
     if (response.success) {
       localStorage.setItem('token', response.token)
-      // localStorage.setItem('rno', rno);
+      localStorage.setItem('rno', rno);
 
 
 
       // toast.success("Logged in successfully 👍", { autoClose: 1000 })
       setTimeout(() => {
-
-        router.push(`/`)
+        console.log(rno);
+        
+        router.push(`/?rno=${rno}`)
       }, 1000)
     }
     else {

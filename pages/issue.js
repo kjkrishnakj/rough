@@ -13,12 +13,14 @@ const Issue= (rnum) => {
     const { bookId,title, img } = router.query;
     useEffect(() => {
         AOS.init();
-        // if (localStorage.getItem('token')) {
-        //     router.push('/')
-        // }
+        const storedRno = localStorage.getItem("rno");
+        setSid(storedRno)
+        console.log(sid);
     }, [])
     const [sname, setSname] = useState('');
+    const [rno, setRno] = useState("");
     const [sid, setSid] = useState('');
+    const [issueid, setIssueid] = useState('');
     // console.log("sid",sid);
     
     const [bid, setBid] = useState(bookId); 
@@ -43,25 +45,24 @@ const Issue= (rnum) => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        const data = { sname,sid:"22BCE1926",bid:bookId,title,idate,rdate,rs,penalty }
+        e.preventDefault();
+        const storedRno = localStorage.getItem("rno");
+    
+        const data = { sname, sid: storedRno, bid: bookId, title, idate, rdate, rs, penalty };
+    
         let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addIssue`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
-        })
-        let response = await res.json()
-        // console.log(response);
-        // setSname('')
-        // setT('')
-        // setPassword('')
-        // toast.success("welcome " + name + " 🙃", { autoClose: 1000 })
-        // setTimeout(() => {
-        //     router.push('/login')
-        // }, 1000)
-    }
+        });
+    
+        let response = await res.json();
+    
+        if (response.issueId) {
+            console.log("Issue ID:", response.issueId);
+            setIssueid(response.issueId); // Store issueId in state if needed
+        }
+    };
 
     return (
         <div>
@@ -90,7 +91,7 @@ const Issue= (rnum) => {
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Reg no.</label>
                             <div className="mt-2">
-                                <input value={"22bce1926"}  onChange={handleChange}   id="name" name="sname" type="text" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <input value={sid}  onChange={handleChange}   id="name" name="sname" type="text" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 p-3 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
                         </div>
                         <div>
@@ -126,6 +127,9 @@ const Issue= (rnum) => {
                             <button onClick={handleSubmit} type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">issue</button>
                         </div>
                     </form>
+                    <Link href={`/receipt?id=${issueid}`} className="bg-green-500 text-white p-2 rounded">
+    Generate Receipt
+</Link>
 
                     
                 </div>

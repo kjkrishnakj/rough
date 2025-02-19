@@ -20,23 +20,23 @@ const Post = ({ error, book, }) => {
     const { slug } = router.query
 
     const buyNow = async (slug, availableQty, title,id,img) => {
-        if (availableQty <= 0) return;
+    //     if (availableQty <= 0) return;
       
-        try {
-          const res = await fetch("/api/updateQty", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ slug }),
-          });
+    //     try {
+    //       const res = await fetch("/api/updateQty", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ slug }),
+    //       });
       
-          const data = await res.json();
-          if (data.success) {
-            console.log("Updated Quantity:", data.availableQty);
-        }
-    } catch (error) {
-        console.error("Error updating quantity:", error);
-    }
-    console.log("id:", id);
+    //       const data = await res.json();
+    //       if (data.success) {
+    //         console.log("Updated Quantity:", data.availableQty);
+    //     }
+    // } catch (error) {
+    //     console.error("Error updating quantity:", error);
+    // }
+    // console.log("id:", id);
         
         
     
