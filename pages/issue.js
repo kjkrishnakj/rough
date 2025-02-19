@@ -45,11 +45,14 @@ const Issue= (rnum) => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+
+        e.preventDefault()
         const storedRno = localStorage.getItem("rno");
-    
-        const data = { sname, sid: storedRno, bid: bookId, title, idate, rdate, rs, penalty };
-    
+        setSid(storedRno)
+        console.log(sid);
+        
+        const data = { sname,sid,bid:bookId,title,idate,rdate,rs,penalty }
+
         let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addIssue`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
